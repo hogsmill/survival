@@ -14,8 +14,10 @@
     <ul>
       <li v-for="item in items" :key="item.order">{{ item.item }}</li>
     </ul>
-    <p>You need to rank these items in order of importance. If all the players understand the
-       situation and the rules, one of you neds to press the button to start the game...</p>
+    <p>You need to rank these items in order of importance, and keep the top 5; al lother items will have to
+       be discarded to stop the yacht from sinking.</p>
+    <p>If all the players understand the situation and the rules, one of you needs to press the button
+       to start the game...</p>
     <div>
       <button class="btn btn-sm btn-secondary smaller-font" @click="startGame">Start Game</button>
     </div>
