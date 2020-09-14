@@ -2,7 +2,7 @@
 
   <div class="rounded solution">
     <h3>Score</h3>
-    <h4>You scored {{finalScore()}}/{{maxScore}} ({{percentage()}}%)</h4>
+    <h4>You scored {{score()}}/5 ({{percentage()}}%)</h4>
     <h3>Rationale</h3>
     <p>According to the experts (US Coastguard), the basic supplies needed
        when a person is stranded mid-ocean are articles to attract attention
@@ -26,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in rankedItems()" :key="item.order">
+        <tr :class="{'selected': item.order <= 5 && item.rank > 5, 'correct': item.order <= 5 && item.rank <= 5}" v-for="item in rankedItems()" :key="item.order">
           <td class="rank">{{ item.rank }}</td>
           <td class="rank">{{ item.order }}</td>
           <td>{{ item.item }}</td>
@@ -42,11 +42,21 @@
 export default {
   methods: {
     percentage() {
-      return Math.trunc(100 * this.finalScore() / this.maxScore)
+      return this.score() / 5 * 100
     },
-    finalScore() {
-      console.log('score', this.score)
-      return this.maxScore - this.score
+    score() {
+      var s = 0
+      var items = this.rankedItems()
+      for (var i = 0; i < items.length; i++) {
+        for (var j = 0; j < items.length; j++) {
+          console.log(items[i], items[j])
+          if (items[i].item == items[j].item && items[i].rank <= 5 && items[j].order <= 5) {
+            s = s + 1
+          }
+        }
+
+      }
+      return s
     },
     itemRank(item, items) {
       var rank = 0
@@ -70,12 +80,6 @@ export default {
   computed: {
     items() {
       return this.$store.getters.getItems
-    },
-    score() {
-      return this.$store.getters.getScore
-    },
-    maxScore() {
-      return this.$store.getters.getMaxScore
     }
   }
 }
@@ -88,6 +92,20 @@ export default {
     width: 80%;
     background-color: #fff;
     padding: 12px;
+
+    .correct {
+      td {
+        background-color: green;
+        color: #fff;
+      }
+    }
+
+    .selected {
+      td {
+        background-color: cornflowerblue;
+        color: #fff;
+      }
+    }
 
     .rank {
       text-align: center;
