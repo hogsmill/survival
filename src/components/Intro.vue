@@ -14,7 +14,8 @@
     <ul>
       <li v-for="item in items" :key="item.order">{{ item.item }}</li>
     </ul>
-    <p>You need to rank these items in order of importance, and keep the top 5; al lother items will have to
+    <p>In addition, you have salvaged a four man rubber life craft and a box of matches.</p>
+    <p>You need to rank the items in order of importance, and keep the top 5; all other items will have to
        be discarded to stop the yacht from sinking.</p>
     <p>If all the players understand the situation and the rules, one of you needs to press the button
        to start the game...</p>

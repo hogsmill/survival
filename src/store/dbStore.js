@@ -6,7 +6,7 @@ function createNewGame(data) {
   game.gameState = [],
   game.items = [
     {score: 0, item: 'Shaving Mirror', order: 1, reason: 'Critical for signaling'},
-    {score: 0, item: '2 Gallon of Oil/Petrol Mixture', order: 2, reason: 'Critical for signaling. The mixture will float on water and could be ignited with one of the £5 notes and a match. (What the experts don’t say is how you get away from this conflagration or what to do if the wind should push the life raft into the flames!)'},
+    {score: 0, item: '2 Gallon of Oil/Petrol Mixture', order: 2, reason: 'Critical for signaling. The mixture will float on water and could be ignited with the matches. (What the experts don’t say is how you get away from this conflagration or what to do if the wind should push the life raft into the flames!)'},
     {score: 0, item: '5 Gallon Can of Water', order: 3, reason: 'Necessary to replenish fluids lost through perspiration'},
     {score: 0, item: 'One Case of Army Rations', order: 4, reason: 'Basic food intake'},
     {score: 0, item: '20 Square Feet of Opaque Plastic', order: 5, reason: 'Can be utilised to collect rain water and provide shelter from the elements'},
