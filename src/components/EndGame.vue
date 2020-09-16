@@ -1,6 +1,8 @@
 <template>
   <div class="end-game">
-      <button class="name btn btn-sm btn-secondary smaller-font"  @click="endGame()">Finish Ranking</button>
+    <button class="name btn btn-sm btn-secondary smaller-font" @click="endGame()">
+      Finish Ranking
+    </button>
   </div>
 </template>
 
@@ -9,14 +11,14 @@ export default {
   props: [
     'socket'
   ],
-  methods: {
-    endGame() {
-      this.socket.emit("endGame", {gameName: this.gameName})
-    }
-  },
   computed: {
     gameName() {
       return this.$store.getters.getGameName
+    }
+  },
+  methods: {
+    endGame() {
+      this.socket.emit('endGame', {gameName: this.gameName})
     }
   }
 }

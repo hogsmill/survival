@@ -1,7 +1,7 @@
 
 function createNewGame(data) {
 
-  var game = data
+  const game = data
   game.gameName = data.gameName
   game.gameState = [],
   game.items = [
@@ -28,24 +28,24 @@ function createNewGame(data) {
 }
 
 function maxScore(n) {
-  var score = 0
-  for (var i = 1; i <= n; i++) {
+  let score = 0
+  for (let i = 1; i <= n; i++) {
     score += parseInt(Math.abs(i - (n - i + 1)))
   }
   return score
 }
 
 function itemOrder(items, item) {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     if (item.item == items[i].item) {
       return i + 1
     }
   }
 }
 function calculateScore(gameState, items) {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     items[i].score = 0
-    for (var j = 0; j < gameState.length; j++) {
+    for (let j = 0; j < gameState.length; j++) {
       items[i].score = items[i].score + itemOrder(gameState[j].items, items[i])
     }
   }
@@ -53,21 +53,21 @@ function calculateScore(gameState, items) {
 }
 
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length, temporaryValue, randomIndex
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
 
     // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
   }
-  return array;
+  return array
 }
 
 function _loadGame(err, client, db, io, data, debugOn) {
@@ -75,17 +75,17 @@ function _loadGame(err, client, db, io, data, debugOn) {
   if (debugOn) { console.log('loadGame', data) }
 
   db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
-    if (err) throw err;
+    if (err) throw err
     if (res) {
-      if (debugOn) { console.log("Loading game '" + data.gameName + "'") }
-      io.emit("loadGame", res)
-      client.close();
+      if (debugOn) { console.log('Loading game \'' + data.gameName + '\'') }
+      io.emit('loadGame', res)
+      client.close()
     } else {
-      var game = createNewGame(data)
-      if (debugOn) { console.log("Creating game '" + data.gameName + "'") }
+      const game = createNewGame(data)
+      if (debugOn) { console.log('Creating game \'' + data.gameName + '\'') }
       db.collection('survival').insertOne(game, function(err, rec) {
-        if (err) throw err;
-        io.emit("loadGame", game)
+        if (err) throw err
+        io.emit('loadGame', game)
         client.close()
       })
     }
@@ -117,8 +117,8 @@ module.exports = {
     db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
-        var gameState = res.gameState, found = false
-        for (var i = 0; i < gameState.length; i++) {
+        let gameState = res.gameState, found = false
+        for (let i = 0; i < gameState.length; i++) {
           if (gameState[i].name.id == data.player.id) {
             found = true
             gameState[i].name.name = data.player.name
@@ -143,8 +143,8 @@ module.exports = {
     db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
-        var gameState = res.gameState, items = res.items
-        for (var i = 0; i < gameState.length; i++) {
+        let gameState = res.gameState, items = res.items
+        for (let i = 0; i < gameState.length; i++) {
           if (gameState[i].name.id == data.player.id) {
             gameState[i].items = data.items
           }
