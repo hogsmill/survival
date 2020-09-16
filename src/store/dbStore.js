@@ -117,7 +117,8 @@ module.exports = {
     db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
-        let gameState = res.gameState, found = false
+        const gameState = res.gameState
+        let found = false
         for (let i = 0; i < gameState.length; i++) {
           if (gameState[i].name.id == data.player.id) {
             found = true
@@ -143,13 +144,13 @@ module.exports = {
     db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
-        let gameState = res.gameState, items = res.items
+        const gameState = res.gameState
         for (let i = 0; i < gameState.length; i++) {
           if (gameState[i].name.id == data.player.id) {
             gameState[i].items = data.items
           }
         }
-        items = calculateScore(gameState, items)
+        const items = calculateScore(gameState, res.items)
         data.gameState = gameState
         data.items = items
         db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, function(err, ) {
