@@ -23,6 +23,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
+    thisGame: 'Survival',
     connections: 0,
     showAbout: false,
     walkThrough: false,
@@ -36,6 +37,9 @@ export const store = new Vuex.Store({
     maxScore: 0
   },
   getters: {
+    thisGame: (state) => {
+      return state.thisGame
+    },
     getHost: (state) => {
       return state.host
     },
