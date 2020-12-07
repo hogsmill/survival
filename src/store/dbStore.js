@@ -23,7 +23,7 @@ function createNewGame(data) {
   ],
   game.maxScore = maxScore(game.items.length)
   game.created = new Date().toISOString()
-  game.lastaccess =  new Date().toISOString()
+  game.lastaccess = new Date().toISOString()
 
   return game
 }
