@@ -132,6 +132,7 @@ module.exports = {
         db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState}}, function(err, ) {
          if (err) throw err
           io.emit('updateGameState', data)
+          client.close()
         })
       }
     })
@@ -154,9 +155,10 @@ module.exports = {
         data.gameState = gameState
         data.items = items
         db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, function(err, ) {
-         if (err) throw err
-         io.emit('updateGameState', data)
-         io.emit('updateItems', data)
+          if (err) throw err
+          io.emit('updateGameState', data)
+          io.emit('updateItems', data)
+          client.close()
         })
       }
     })

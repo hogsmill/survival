@@ -14,84 +14,36 @@
         </button>
       </div>
       <div class="mt-4" v-if="step == 1">
-        <h4>Welcome to Agile Battleships</h4>
+        <h4>Welcome to Survival at Sea</h4>
         <div>
           <p>
-            The classic board game with an agile twist! Explore why frequent and timely
-            feedback makes progress that much quicker - in battleships, as in development...
+            The classic "lost at sea" survival game - what will you keep, and what
+            will you throw away? A great exercise on ruthless prioritisation...
           </p>
           <p>
-            You will need 2 people to play this game, on 2 separate browsers/machines
+            Any number of players can play this game, each on their own browser/machine;
+            the game updates in real time so you can play when team members are remote
+            or WFH.
           </p>
-          <p>Enjoy!</p>
         </div>
       </div>
       <div class="mt-4" v-if="step == 2">
-        <h4>Game Setup</h4>
+        <h4>Welcome to Survival at Sea</h4>
         <div>
           <p>
-            First, both players need to set the <em>same</em> game name by clicking the
+            To play the game, each player simply needs to set the same gane name, then
+            enter their name to create them as a player.
           </p>
-          <div class="rounded walkthrough-button">
-            Set Game Name
-          </div>
-          <p>button</p>
+          <p>
+            Once all players have read the instructions and understand them, start the
+            game and make your choices...
+          </p>
+          <p>
+            Enjoy!
+          </p>
         </div>
       </div>
-      <div class="mt-4" v-if="step == 3">
-        <h4>Game Setup</h4>
-        <div>
-          <p>
-            Next, both players need to set their name by clicking the
-          </p>
-          <div class="rounded walkthrough-button">
-            Set My Name
-          </div>
-          <p>button</p>
-        </div>
-      </div>
-      <div class="mt-4" v-if="step == 4">
-        <h4>Game Setup</h4>
-        <div>
-          <p>
-            Next, one player needs to click the
-          </p>
-          <div class="rounded walkthrough-button">
-            Who is Agile?
-          </div>
-          <p>
-            button to see who is playing "agile", and who isn't. The board should
-            now look something like this:
-          </p>
-          <div class="game setup" />
-        </div>
-      </div>
-      <div class="mt-4" v-if="step == 5">
-        <h4>Game Setup</h4>
-        <div>
-          <p>
-            Next, place your ships. Click on the arrow buttons for each ship to
-            place horizontally or vertically.
-          </p>
-          <p>
-            You can re-position later if you
-            wish - as long as the game hasn't started...
-          </p>
-          <div class="game place-boat" />
-        </div>
-      </div>
-      <div class="mt-4" v-if="step == 6">
-        <h4>Game Play</h4>
-        <div>
-          <p>
-            Once both players are happy they have positioned their boats, take your
-            shots in turn. Simply click on your opponents board, and it you're "agile"
-            you'll see if you've hit your opponents boat or not.
-          </p>
-          <p>If you're not "agile", if course, you're in the dark. Good luck!...</p>
-        </div>
-      </div>
-      <div class="buttons" v-if="step < 6">
+      <div class="buttons" v-if="step < 2">
         <button class="btn btn-info" @click="incrementStep">
           Next
         </button>
@@ -99,7 +51,7 @@
           Skip
         </button>
       </div>
-      <div class="buttons" v-if="step == 6">
+      <div class="buttons" v-if="step == 2">
         <button class="btn btn-info" @click="hide()">
           Play Game
         </button>
@@ -115,9 +67,9 @@ export default {
   data() {
     return {
       step: 1,
-      default: { width: 600, height: 490 },
+      default: { width: 600, height: 520 },
       positions: {
-        4: { height: 400 }
+        1: { }
       }
     }
   },

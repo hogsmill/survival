@@ -62,7 +62,6 @@ export default {
       const items = this.rankedItems()
       for (let i = 0; i < items.length; i++) {
         for (let j = 0; j < items.length; j++) {
-          console.log(items[i], items[j])
           if (items[i].item == items[j].item && items[i].rank <= 5 && items[j].order <= 5) {
             s = s + 1
           }
