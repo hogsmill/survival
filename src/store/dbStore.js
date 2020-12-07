@@ -22,8 +22,8 @@ function createNewGame(data) {
     {score: 0, item: 'Sextant', order: 15, reason: 'Useless without the relevant tables and a chronometer'}
   ],
   game.maxScore = maxScore(game.items.length)
-  game.created = new Date().toISOString(),
-  game.lastaccess: new Date().toISOString()
+  game.created = new Date().toISOString()
+  game.lastaccess =  new Date().toISOString()
 
   return game
 }
