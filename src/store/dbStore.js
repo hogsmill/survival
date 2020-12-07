@@ -22,7 +22,8 @@ function createNewGame(data) {
     {score: 0, item: 'Sextant', order: 15, reason: 'Useless without the relevant tables and a chronometer'}
   ],
   game.maxScore = maxScore(game.items.length)
-  game.created = new Date().toISOString()
+  game.created = new Date().toISOString(),
+  game.lastaccess: new Date().toISOString()
 
   return game
 }
@@ -77,6 +78,9 @@ function _loadGame(err, client, db, io, data, debugOn) {
   db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
     if (err) throw err
     if (res) {
+      db.collection('survival').updateOne({'_id': res._id}, {$set: {lastaccess: new Date().toISOString()} }, function(err) {
+        if (err) throw err
+      })
       if (debugOn) { console.log('Loading game \'' + data.gameName + '\'') }
       io.emit('loadGame', res)
       client.close()
