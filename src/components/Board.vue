@@ -16,7 +16,8 @@
       <tr>
         <td>
           <div v-for="item in sortedItems" :key="item.item" class="sorted-items">
-            {{ item.item }} {{ item.score / gameState.length }}
+            {{ item.item }}
+            <div>{{ item.score / gameState.length }}</div>
           </div>
         </td>
         <td v-for="player in gameState" :key="'b-' + player.name.id">
@@ -86,8 +87,10 @@ export default {
     td {
 
       div div, .sorted-items {
-        border-radius: 12px;
+        border-radius: 6px;
+        box-shadow: 3px 3px 4px #444;
         margin: 4px;
+        padding: 6px;
         background-color: #fff;
         opacity: 0.9;
       }
@@ -95,6 +98,17 @@ export default {
       .sorted-items {
         background-color: green;
         color: #fff;
+
+        div {
+          background-color: red;
+          float: right;
+          height: 26px;
+          width: 26px;
+          border-radius: 13px;
+          text-align: center;
+          padding: 0;
+          margin-top: 0;
+        }
       }
     }
   }

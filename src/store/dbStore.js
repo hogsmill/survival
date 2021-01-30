@@ -9,7 +9,7 @@ function createNewGame(data) {
     {score: 0, item: '2 Gallon of Oil/Petrol Mixture', order: 2, reason: 'Critical for signaling. The mixture will float on water and could be ignited with the matches. (What the experts don’t say is how you get away from this conflagration or what to do if the wind should push the life raft into the flames!)'},
     {score: 0, item: '5 Gallon Can of Water', order: 3, reason: 'Necessary to replenish fluids lost through perspiration'},
     {score: 0, item: 'One Case of Army Rations', order: 4, reason: 'Basic food intake'},
-    {score: 0, item: '20 Square Feet of Opaque Plastic', order: 5, reason: 'Can be utilised to collect rain water and provide shelter from the elements'},
+    {score: 0, item: '20 sq ft of Opaque Plastic', order: 5, reason: 'Can be utilised to collect rain water and provide shelter from the elements'},
     {score: 0, item: '2 Boxes of Chocolate Bars', order: 6, reason: 'Reserve food supply (what were you going to do with that much chocolate?)'},
     {score: 0, item: 'Fishing Kit', order: 7, reason: 'Ranked lower than the chocolate as "a bird in the hand is worth two in the bush" (I don\'t remember birds being on the list?) There is no guarantee you will catch any fish.'},
     {score: 0, item: '15 Feet of Nylon Rope', order: 8, reason: 'Could be used to lash people or equipment together to prevent it being washed overboard'},
