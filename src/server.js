@@ -19,9 +19,16 @@ ON_DEATH(function(signal, err) {
   })
 })
 
-const app = require('express')()
+const express = require('express')
+const app = express()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+const io = require('socket.io')(http, {
+  cors: {
+    origins: ['http://localhost:*', 'http://agilesimulations.co.uk'],
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+})
 
 const dbStore = require('./store/dbStore.js')
 
@@ -49,16 +56,16 @@ function doDb(fun, data) {
 
     switch(fun) {
       case 'loadGame':
-        dbStore.loadGame(err, client, db, io, data, debugOn)
+        dbStore.loadGame(db, io, data, debugOn)
         break
       case 'restartGame':
-        dbStore.restartGame(err, client, db, io, data, debugOn)
+        dbStore.restartGame(db, io, data, debugOn)
         break
       case 'addPlayer':
-        dbStore.addPlayer(err, client, db, io, data, debugOn)
+        dbStore.addPlayer(db, io, data, debugOn)
         break
       case 'updateItems':
-        dbStore.updateItems(err, client, db, io, data, debugOn)
+        dbStore.updateItems(db, io, data, debugOn)
         break
     }
   })

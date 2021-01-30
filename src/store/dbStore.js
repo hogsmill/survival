@@ -71,7 +71,7 @@ function shuffle(array) {
   return array
 }
 
-function _loadGame(err, client, db, io, data, debugOn) {
+function _loadGame(db, io, data, debugOn) {
 
   if (debugOn) { console.log('loadGame', data) }
 
@@ -89,7 +89,6 @@ function _loadGame(err, client, db, io, data, debugOn) {
       db.collection('survival').insertOne(game, function(err, rec) {
         if (err) throw err
         io.emit('loadGame', game)
-        client.close()
       })
     }
   })
@@ -97,23 +96,23 @@ function _loadGame(err, client, db, io, data, debugOn) {
 
 module.exports = {
 
-  loadGame: function(err, client, db, io, data, debugOn) {
+  loadGame: function(db, io, data, debugOn) {
 
     if (debugOn) { console.log('loadGame', data) }
 
-    _loadGame(err, client, db, io, data, debugOn)
+    _loadGame(db, io, data, debugOn)
   },
 
-  restartGame: function(err, client, db, io, data, debugOn) {
+  restartGame: function(db, io, data, debugOn) {
 
     if (debugOn) { console.log('restartGame', data) }
 
     db.collection('survival').deleteMany({gameName: data.gameName}, function(err, res) {
-      _loadGame(err, client, db, io, data, debugOn)
+      _loadGame(db, io, data, debugOn)
     })
   },
 
-  addPlayer: function(err, client, db, io, data, debugOn) {
+  addPlayer: function(db, io, data, debugOn) {
 
     if (debugOn) { console.log('changeName', data) }
 
@@ -135,13 +134,12 @@ module.exports = {
         db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState}}, function(err, ) {
          if (err) throw err
           io.emit('updateGameState', data)
-          client.close()
         })
       }
     })
   },
 
-  updateItems: function(err, client, db, io, data, debugOn) {
+  updateItems: function(db, io, data, debugOn) {
 
     if (debugOn) { console.log('selectItem', data) }
 
@@ -161,7 +159,6 @@ module.exports = {
           if (err) throw err
           io.emit('updateGameState', data)
           io.emit('updateItems', data)
-          client.close()
         })
       }
     })
