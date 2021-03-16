@@ -11,15 +11,15 @@
         Current server connections: {{ connections.connections }} / {{ connections.maxConnections }}
       </div>
       <div class="names">
-        <GameName :socket="socket" />
-        <MyName :socket="socket" />
-        <EndGame v-if="gameStarted && !gameFinished" :socket="socket" />
+        <GameName />
+        <MyName />
+        <EndGame v-if="gameStarted && !gameFinished" />
       </div>
       <div class="container">
         <div class="row">
-          <Intro v-if="!gameStarted && !gameFinished" :socket="socket" />
-          <Board v-if="gameStarted && !gameFinished" :socket="socket" />
-          <Solution v-if="gameStarted && gameFinished" :socket="socket" />
+          <Intro v-if="!gameStarted && !gameFinished" />
+          <Board v-if="gameStarted && !gameFinished" />
+          <Solution v-if="gameStarted && gameFinished" />
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
+import bus from './socket.js'
 
 import params from './lib/params.js'
 
@@ -84,15 +84,6 @@ export default {
     }
   },
   created() {
-    let connStr
-    if (location.hostname == 'localhost') {
-      connStr = 'http://localhost:3011'
-    } else {
-      connStr = 'https://agilesimulations.co.uk:3011'
-    }
-    console.log('Connecting to: ' + connStr)
-    this.socket = io(connStr)
-
     if (params.isParam('host')) {
       this.$store.dispatch('updateHost', true)
     }
@@ -105,45 +96,45 @@ export default {
 
     const gameName = localStorage.getItem('gameName-su')
     if (gameName) {
-      this.socket.emit('loadGame', {gameName: gameName})
+      bus.$emit('sendLoadGame', {gameName: gameName})
       this.$store.dispatch('updateGameName', gameName)
     }
 
     if (myName && gameName) {
-      this.socket.emit('addPlayer', {gameName: gameName, player: myName})
+      bus.$emit('sendAddPlayer', {gameName: gameName, player: myName})
     }
 
-    this.socket.on('loadGame', (data) => {
+    bus.$on('loadGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('loadGame', data)
       }
     })
 
-    this.socket.on('startGame', (data) => {
+    bus.$on('startGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('startGame', true)
       }
     })
 
-    this.socket.on('endGame', (data) => {
+    bus.$on('endGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('endGame', true)
       }
     })
 
-    this.socket.on('updateGameState', (data) => {
+    bus.$on('updateGameState', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('updateGameState', data)
       }
     })
 
-    this.socket.on('updateItems', (data) => {
+    bus.$on('updateItems', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('updateItems', data)
       }
     })
 
-    this.socket.on('updateConnections', (data) => {
+    bus.$on('updateConnections', (data) => {
       this.$store.dispatch('updateConnections', data)
     })
   },

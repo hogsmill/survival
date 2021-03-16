@@ -86,17 +86,17 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
       emit('updateConnections', {connections: connections, maxConnections: maxConnections})
     })
 
-    socket.on('loadGame', (data) => { dbStore.loadGame(db, io, data, debugOn) })
+    socket.on('sendLoadGame', (data) => { dbStore.loadGame(db, io, data, debugOn) })
 
-    socket.on('restartGame', (data) => { dbStore.restartGame(db, io, data, debugOn) })
+    socket.on('sendRestartGame', (data) => { dbStore.restartGame(db, io, data, debugOn) })
 
-    socket.on('addPlayer', (data) => { dbStore.addPlayer(db, io, data, debugOn) })
+    socket.on('sendAddPlayer', (data) => { dbStore.addPlayer(db, io, data, debugOn) })
 
-    socket.on('startGame', (data) => { emit('startGame', data) })
+    socket.on('sendStartGame', (data) => { emit('startGame', data) })
 
-    socket.on('updateItems', (data) => { dbStore.updateItems(db, io, data, debugOn) })
+    socket.on('sendUpdateItems', (data) => { dbStore.updateItems(db, io, data, debugOn) })
 
-    socket.on('endGame', (data) => { emit('endGame', data) })
+    socket.on('sendEndGame', (data) => { emit('endGame', data) })
   })
 })
 

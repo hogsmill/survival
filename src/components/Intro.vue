@@ -37,10 +37,9 @@
 </template>
 
 <script>
+import bus from '../socket.js'
+
 export default {
-  props: [
-    'socket'
-  ],
   computed: {
     gameName() {
       return this.$store.getters.getGameName
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     startGame() {
-      this.socket.emit('startGame', {gameName: this.gameName})
+      bus.$emit('sendStartGame', {gameName: this.gameName})
     }
   }
 }

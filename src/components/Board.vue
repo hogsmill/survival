@@ -40,13 +40,12 @@
 <script>
 import draggable from 'vuedraggable'
 
+import bus from '../socket.js'
+
 export default {
   components: {
     draggable
   },
-  props: [
-    'socket'
-  ],
   computed: {
     myName() {
       return this.$store.getters.getMyName
@@ -63,7 +62,7 @@ export default {
   },
   methods: {
     end(items) {
-      this.socket.emit('updateItems', {gameName: this.gameName, player: this.myName, items: items})
+      bus.$emit('sendUpdateItems', {gameName: this.gameName, player: this.myName, items: items})
     }
   }
 }

@@ -27,10 +27,9 @@
 <script>
 import { v4 as uuidv4 } from 'uuid'
 
+import bus from '../socket.js'
+
 export default {
-  props: [
-    'socket'
-  ],
   computed: {
     showAbout() {
       return this.$store.getters.getShowAbout
@@ -60,7 +59,7 @@ export default {
         myNameData = {id: this.myName.id, name: newName}
       }
       this.$store.dispatch('setMyName', myNameData)
-      this.socket.emit('addPlayer', {gameName: this.gameName, player: myNameData})
+      bus.$emit('sendAddPlayer', {gameName: this.gameName, player: myNameData})
       localStorage.setItem('myName-su', JSON.stringify(myNameData))
       this.hide()
     }
