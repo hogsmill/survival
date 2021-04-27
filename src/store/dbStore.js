@@ -75,10 +75,10 @@ function _loadGame(db, io, data, debugOn) {
 
   if (debugOn) { console.log('loadGame', data) }
 
-  db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
+  db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
     if (err) throw err
     if (res) {
-      db.collection('survival').updateOne({'_id': res._id}, {$set: {lastaccess: new Date().toISOString()} }, function(err) {
+      db.gameCollection.updateOne({'_id': res._id}, {$set: {lastaccess: new Date().toISOString()} }, function(err) {
         if (err) throw err
       })
       if (debugOn) { console.log('Loading game \'' + data.gameName + '\'') }
@@ -86,7 +86,7 @@ function _loadGame(db, io, data, debugOn) {
     } else {
       const game = createNewGame(data)
       if (debugOn) { console.log('Creating game \'' + data.gameName + '\'') }
-      db.collection('survival').insertOne(game, function(err, rec) {
+      db.gameCollection.insertOne(game, function(err, rec) {
         if (err) throw err
         io.emit('loadGame', game)
       })
@@ -107,7 +107,7 @@ module.exports = {
 
     if (debugOn) { console.log('restartGame', data) }
 
-    db.collection('survival').deleteMany({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.deleteMany({gameName: data.gameName}, function(err, res) {
       _loadGame(db, io, data, debugOn)
     })
   },
@@ -116,7 +116,7 @@ module.exports = {
 
     if (debugOn) { console.log('changeName', data) }
 
-    db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
         const gameState = res.gameState
@@ -131,7 +131,7 @@ module.exports = {
           gameState.push({name: data.player, items: shuffle(res.items)})
         }
         data.gameState = gameState
-        db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState}}, function(err, ) {
+        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState}}, function(err, ) {
          if (err) throw err
           io.emit('updateGameState', data)
         })
@@ -143,7 +143,7 @@ module.exports = {
 
     if (debugOn) { console.log('selectItem', data) }
 
-    db.collection('survival').findOne({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
       if (err) throw err
       if (res) {
         const gameState = res.gameState
@@ -155,7 +155,7 @@ module.exports = {
         const items = calculateScore(gameState, res.items)
         data.gameState = gameState
         data.items = items
-        db.collection('survival').updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, function(err, ) {
+        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, function(err, ) {
           if (err) throw err
           io.emit('updateGameState', data)
           io.emit('updateItems', data)
