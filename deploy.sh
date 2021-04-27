@@ -16,7 +16,7 @@ done
 REPO="https://github.com/hogsmill/survival.git"
 APPS=(
   'survival,survival,3011'
-  'survival-new,survivalNew,3026,Battleships New,12345'
+  'survival-new,survivalNew,3027,Survival New,12345'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
