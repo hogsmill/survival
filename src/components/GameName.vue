@@ -37,6 +37,12 @@ export default {
       return this.$store.getters.getGameName
     }
   },
+  created() {
+    const self = this
+    bus.$on('startGame', (data) => {
+      self.show()
+    })
+  },
   methods: {
     show () {
       this.$modal.show('set-game-name')

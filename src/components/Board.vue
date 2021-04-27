@@ -102,7 +102,7 @@ export default {
           background-color: red;
           float: right;
           height: 26px;
-          width: 26px;
+          width: 40px;
           border-radius: 13px;
           text-align: center;
           padding: 0;

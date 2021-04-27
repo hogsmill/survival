@@ -26,7 +26,8 @@
     </p>
     <p>
       If all the players understand the situation and the rules, one of you needs to press the button
-      to start the game...
+      to start the game. Decide on a game name - all the players simply need to enter the same game name
+      to play. 
     </p>
     <div>
       <button class="btn btn-sm btn-secondary smaller-font" @click="startGame">

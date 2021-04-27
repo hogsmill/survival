@@ -70,7 +70,7 @@ export default {
 <style lang="scss">
 
 .my-name {
-  width: 120px;
+  min-width: 120px;
   display: inline-block;
 }
 

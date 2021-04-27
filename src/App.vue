@@ -2,11 +2,7 @@
   <div id="app" class="mb-4">
     <appHeader />
     <WalkThroughView />
-    <div v-if="showAbout">
-      <AboutView />
-    </div>
     <div v-if="!showAbout" class="main">
-      <h1>Survival At Sea</h1>
       <div v-if="isHost" class="connections">
         Current server connections: {{ connections.connections }} / {{ connections.maxConnections }}
       </div>
@@ -32,7 +28,6 @@ import bus from './socket.js'
 import params from './lib/params.js'
 
 import Header from './components/Header.vue'
-import AboutView from './components/about/AboutView.vue'
 import WalkThroughView from './components/about/WalkThroughView.vue'
 
 import GameName from './components/GameName.vue'
@@ -46,7 +41,6 @@ export default {
   name: 'App',
   components: {
     appHeader: Header,
-    AboutView,
     WalkThroughView,
     GameName,
     MyName,
@@ -72,11 +66,9 @@ export default {
       return this.$store.getters.getGameState
     },
     gameStarted() {
-      //return true
       return this.$store.getters.getGameStarted
     },
     gameFinished() {
-      //return true
       return this.$store.getters.getGameFinished
     },
     connections() {
