@@ -86,7 +86,7 @@ export default {
         item.rank = this.itemRank(item, this.items)
         itemsRanked.push(item)
       }
-      return itemsRanked.sort(function(a, b) { return a.order - b.order})
+      return itemsRanked.sort((a, b) => { return a.order - b.order})
     }
   }
 }

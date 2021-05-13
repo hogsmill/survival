@@ -1,5 +1,5 @@
 
-function createNewGame(data) {
+const createNewGame = (data) => {
 
   const game = data
   game.gameName = data.gameName
@@ -28,7 +28,7 @@ function createNewGame(data) {
   return game
 }
 
-function maxScore(n) {
+const maxScore = (n) => {
   let score = 0
   for (let i = 1; i <= n; i++) {
     score += parseInt(Math.abs(i - (n - i + 1)))
@@ -36,14 +36,15 @@ function maxScore(n) {
   return score
 }
 
-function itemOrder(items, item) {
+const itemOrder = (items, item) => {
   for (let i = 0; i < items.length; i++) {
     if (item.item == items[i].item) {
       return i + 1
     }
   }
 }
-function calculateScore(gameState, items) {
+
+const calculateScore = (gameState, items) => {
   for (let i = 0; i < items.length; i++) {
     items[i].score = 0
     for (let j = 0; j < gameState.length; j++) {
@@ -53,7 +54,7 @@ function calculateScore(gameState, items) {
   return items
 }
 
-function shuffle(array) {
+const shuffle = (array) => {
   let currentIndex = array.length, temporaryValue, randomIndex
 
   // While there remain elements to shuffle...
@@ -71,14 +72,14 @@ function shuffle(array) {
   return array
 }
 
-function _loadGame(db, io, data, debugOn) {
+const _loadGame = (db, io, data, debugOn) => {
 
   if (debugOn) { console.log('loadGame', data) }
 
-  db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
+  db.gameCollection.findOne({gameName: data.gameName}, (err, res) => {
     if (err) throw err
     if (res) {
-      db.gameCollection.updateOne({'_id': res._id}, {$set: {lastaccess: new Date().toISOString()} }, function(err) {
+      db.gameCollection.updateOne({'_id': res._id}, {$set: {lastaccess: new Date().toISOString()} }, (err) => {
         if (err) throw err
       })
       if (debugOn) { console.log('Loading game \'' + data.gameName + '\'') }
@@ -86,7 +87,7 @@ function _loadGame(db, io, data, debugOn) {
     } else {
       const game = createNewGame(data)
       if (debugOn) { console.log('Creating game \'' + data.gameName + '\'') }
-      db.gameCollection.insertOne(game, function(err, rec) {
+      db.gameCollection.insertOne(game, (err, rec) => {
         if (err) throw err
         io.emit('loadGame', game)
       })
@@ -107,7 +108,7 @@ module.exports = {
 
     if (debugOn) { console.log('restartGame', data) }
 
-    db.gameCollection.deleteMany({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.deleteMany({gameName: data.gameName}, (err, res) => {
       _loadGame(db, io, data, debugOn)
     })
   },
@@ -116,7 +117,7 @@ module.exports = {
 
     if (debugOn) { console.log('changeName', data) }
 
-    db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.findOne({gameName: data.gameName}, (err, res) => {
       if (err) throw err
       if (res) {
         const gameState = res.gameState
@@ -131,7 +132,7 @@ module.exports = {
           gameState.push({name: data.player, items: shuffle(res.items)})
         }
         data.gameState = gameState
-        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState}}, function(err, ) {
+        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState}}, (err, ) => {
          if (err) throw err
           io.emit('updateGameState', data)
         })
@@ -143,7 +144,7 @@ module.exports = {
 
     if (debugOn) { console.log('selectItem', data) }
 
-    db.gameCollection.findOne({gameName: data.gameName}, function(err, res) {
+    db.gameCollection.findOne({gameName: data.gameName}, (err, res) => {
       if (err) throw err
       if (res) {
         const gameState = res.gameState
@@ -155,7 +156,7 @@ module.exports = {
         const items = calculateScore(gameState, res.items)
         data.gameState = gameState
         data.items = items
-        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, function(err, ) {
+        db.gameCollection.updateOne({'_id': res._id}, {$set: {gameState: gameState, items: items}}, (err, ) => {
           if (err) throw err
           io.emit('updateGameState', data)
           io.emit('updateItems', data)

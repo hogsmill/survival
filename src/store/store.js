@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-function shuffle(array) {
+const shuffle = (array) => {
   let currentIndex = array.length, temporaryValue, randomIndex
 
   // While there remain elements to shuffle...
@@ -62,10 +62,10 @@ export const store = new Vuex.Store({
       return shuffle(state.items)
     },
     getItemsSorted: (state) => {
-      return state.items.sort(function(a, b) { return a.score - b.score })
+      return state.items.sort((a, b) => { return a.score - b.score })
     },
     getItemsOrdered: (state) => {
-      return state.items.sort(function(a, b) { return a.order - b.order })
+      return state.items.sort((a, b) => { return a.order - b.order })
     },
     getGameState: (state) => {
       return state.gameState

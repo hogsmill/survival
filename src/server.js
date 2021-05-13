@@ -10,7 +10,7 @@ const port = prod ? process.env.VUE_APP_PORT : 3008
 const logFile = prod ? process.argv[4] : 'server.log'
 const gameCollection =  prod ? process.env.VUE_APP_COLLECTION : 'battleships'
 
-ON_DEATH(function(signal, err) {
+ON_DEATH((signal, err) => {
   let logStr = new Date()
   if (signal) {
     logStr = logStr + ' ' + signal + '\n'
@@ -18,7 +18,7 @@ ON_DEATH(function(signal, err) {
   if (err && err.stack) {
     logStr = logStr + '  ' + err.stack + '\n'
   }
-  fs.appendFile(logFile, logStr, function (err) {
+  fs.appendFile(logFile, logStr, (err) => {
     if (err) console.log(logStr)
     process.exit()
   })
@@ -64,18 +64,18 @@ const debugOn = !prod
 let connections = 0
 const maxConnections = 50
 
-function emit(event, data) {
+const emit = (event, data) => {
   if (debugOn) {
     console.log(event, data)
   }
   io.emit(event, data)
 }
 
-MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
+MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err
   const db = client.db('db')
 
-  db.createCollection(gameCollection, function(error, collection) {})
+  db.createCollection(gameCollection, (error, collection) => {})
 
   db.gameCollection = db.collection(gameCollection)
 
