@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="mb-4">
     <appHeader />
+    <ClearStorage />
     <WalkThroughView />
     <div v-if="!showAbout" class="main">
       <div v-if="isHost" class="connections">
@@ -28,6 +29,7 @@ import bus from './socket.js'
 import params from './lib/params.js'
 
 import Header from './components/Header.vue'
+import ClearStorage from './components/ClearStorage.vue'
 import WalkThroughView from './components/about/WalkThroughView.vue'
 
 import GameName from './components/GameName.vue'
@@ -41,6 +43,7 @@ export default {
   name: 'App',
   components: {
     appHeader: Header,
+    ClearStorage,
     WalkThroughView,
     GameName,
     MyName,

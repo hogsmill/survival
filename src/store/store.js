@@ -40,6 +40,9 @@ export const store = new Vuex.Store({
     thisGame: (state) => {
       return state.thisGame
     },
+    lsSuffix: (state) => {
+      return 'su'
+    },
     getHost: (state) => {
       return state.host
     },
