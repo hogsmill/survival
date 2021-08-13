@@ -17,6 +17,8 @@ REPO="https://github.com/hogsmill/survival.git"
 APPS=(
   'survival,survival,3011'
   'survival-new,survivalNew,3027,Survival New'
+  'survival-ratesetter,survivalRateSetter,3062,Survival'
+  'survival-eagile,survivalEverydayAgile,3069,Survival'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
