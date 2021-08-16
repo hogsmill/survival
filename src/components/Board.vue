@@ -100,16 +100,19 @@ export default {
       .sorted-items {
         background-color: green;
         color: #fff;
+        position: relative;
 
         div {
           background-color: red;
-          float: right;
           height: 26px;
           width: 40px;
           border-radius: 13px;
           text-align: center;
           padding: 0;
           margin-top: 0;
+          position: absolute;
+          top: 4px;
+          right: 0;
         }
       }
     }
