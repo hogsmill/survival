@@ -61,6 +61,9 @@ export default {
     }
   },
   methods: {
+    score(item) {
+      return Math.floor(item.score / gameState.length * 10) * 10
+    },
     end(items) {
       bus.$emit('sendUpdateItems', {gameName: this.gameName, player: this.myName, items: items})
     }
