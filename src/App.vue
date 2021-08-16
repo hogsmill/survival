@@ -95,13 +95,12 @@ export default {
       this.$store.dispatch('updateGameName', gameName)
     }
 
-    if (myName && gameName) {
-      bus.$emit('sendAddPlayer', {gameName: gameName, player: myName})
-    }
-
     bus.$on('loadGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('loadGame', data)
+        if (myName && gameName) {
+          bus.$emit('sendAddPlayer', {gameName: gameName, player: myName})
+        }
       }
     })
 

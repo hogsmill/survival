@@ -6,9 +6,9 @@ const ON_DEATH = require('death')({uncaughtException: true})
 const os = require('os')
 const prod = os.hostname() == 'agilesimulations' ? true : false
 
-const port = prod ? process.env.VUE_APP_PORT : 3008
+const port = prod ? process.env.VUE_APP_PORT : 3011
 const logFile = prod ? process.argv[4] : 'server.log'
-const gameCollection =  prod ? process.env.VUE_APP_COLLECTION : 'battleships'
+const gameCollection =  prod ? process.env.VUE_APP_COLLECTION : 'survival'
 
 ON_DEATH((signal, err) => {
   let logStr = new Date()
