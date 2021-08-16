@@ -17,7 +17,7 @@
         <td>
           <div v-for="item in sortedItems" :key="item.item" class="sorted-items">
             {{ item.item }}
-            <div>{{ item.score / gameState.length }}</div>
+            <div>{{ score(item.score) }}</div>
           </div>
         </td>
         <td v-for="player in gameState" :key="'b-' + player.name.id">
