@@ -15,6 +15,7 @@ do
 done
 
 REPO="https://github.com/hogsmill/survival.git"
+MAINAPP="survival"
 APPS=(
   'survival,survival,3011'
   'survival-new,survivalNew,3027,Survival New'
@@ -86,8 +87,13 @@ do
       kill -9 $SERVER
     fi
   fi
-  rm -rf $DIR/node_modules/.cache
-  rm -rf $DIR/dist
+  if [ $i == 0 ]; then
+      rm -rf $DIR/node_modules/.cache
+    else
+      rm -rf node_modules
+      ln -s ../$MAINAPP/node_modules node_modules
+    fi
+    rm -rf $DIR/dist
 done
 
 ps -ef | grep php | grep outdated
