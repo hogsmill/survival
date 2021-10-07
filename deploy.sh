@@ -21,6 +21,7 @@ APPS=(
   'survival-new,survivalNew,3027,Survival New'
   'survival-ratesetter,survivalRateSetter,3062,Survival'
   'survival-eagile,survivalEverydayAgile,3069,Survival'
+  'survival-and,survivalAnd,3108,Survival'
 )
 
 for ((i = 0; i < ${#APPS[@]}; i++))
