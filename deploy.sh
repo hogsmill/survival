@@ -44,25 +44,6 @@ do
   APPNAME=$MAINNAME
   let PORT=$BASEPORT+$i
 
-#REPO="https://github.com/hogsmill/survival.git"
-#MAINAPP="survival"
-#APPS=(
-#  'survival,survival,3011'
-#  'survival-new,survivalNew,3027,Survival New'
-#  'survival-ratesetter,survivalRateSetter,3062,Survival'
-#  'survival-eagile,survivalEverydayAgile,3069,Survival'
-#  'survival-and,survivalAnd,3108,Survival'
-#)
-#
-#for ((i = 0; i < ${#APPS[@]}; i++))
-#do
-#  REC="${APPS[$i]}"
-#
-#  APP=`echo $REC | cut -d, -f1`
-#  COLLECTION=`echo $REC | cut -d, -f2`
-#  PORT=`echo $REC | cut -d, -f3`
-#  APPNAME=`echo $REC | cut -d, -f4`
-
   echo "------------------------------------------------"
   if [ -z "$APPNAME" ]; then
     echo "Installing $APP ($COLLECTION, $PORT)"
