@@ -22,6 +22,7 @@ MAINNAME="Survival at Sea"
 ROUTES=(
   '',''
   'new','New'
+  'guardian','Guardian'
   'ratesetter','Ratesetter'
   'eagile','EverydayAgile'
   'and','And'
