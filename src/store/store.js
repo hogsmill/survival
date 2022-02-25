@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+
+import { createStore } from 'vuex'
 
 const shuffle = (array) => {
   if (array.length) {
@@ -21,12 +21,16 @@ const shuffle = (array) => {
   return array
 }
 
-Vue.use(Vuex)
-
-export const store = new Vuex.Store({
+export const store = createStore({
   state: {
     thisGame: 'Survival',
     connections: 0,
+    modals: {
+      'feedback': false,
+      'walkThrough': false,
+      'setGameName': false,
+      'setMyName': false
+    },
     showAbout: false,
     walkThrough: false,
     myName: '',
@@ -47,6 +51,9 @@ export const store = new Vuex.Store({
     },
     getHost: (state) => {
       return state.host
+    },
+    getModals: (state) => {
+      return state.modals
     },
     getShowAbout: (state) => {
       return state.showAbout
@@ -101,6 +108,17 @@ export const store = new Vuex.Store({
     updateWalkThrough: (state, payload) => {
       state.walkThrough = payload
     },
+    showModal: (state, payload) => {
+      const modals = Object.keys(state.modals)
+      for (let i = 0; i < modals.length; i++) {
+        state.modals[modals[i]] = false
+      }
+      state.modals[payload] = true
+      console.log(state.modals)
+    },
+    hideModal: (state, payload) => {
+      state.modals[payload] = false
+    },
     setMyName: (state, payload) => {
       state.myName = payload
     },
@@ -148,6 +166,12 @@ export const store = new Vuex.Store({
     },
     updateWalkThrough: ({ commit }, payload) => {
       commit('updateWalkThrough', payload)
+    },
+    showModal: ({ commit }, payload) => {
+      commit('showModal', payload)
+    },
+    hideModal: ({ commit }, payload) => {
+      commit('hideModal', payload)
     },
     setMyName: ({ commit }, payload) => {
       commit('setMyName', payload)

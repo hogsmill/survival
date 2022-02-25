@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <Modals />
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import params from './lib/params.js'
 import Header from './components/Header.vue'
 import ClearStorage from './components/ClearStorage.vue'
 import WalkThroughView from './components/about/WalkThroughView.vue'
+import Modals from './components/Modals.vue'
 
 import GameName from './components/GameName.vue'
 import MyName from './components/MyName.vue'
@@ -45,6 +47,7 @@ export default {
     appHeader: Header,
     ClearStorage,
     WalkThroughView,
+    Modals,
     GameName,
     MyName,
     EndGame,
@@ -91,44 +94,44 @@ export default {
 
     const gameName = localStorage.getItem('gameName-su')
     if (gameName) {
-      bus.$emit('sendLoadGame', {gameName: gameName})
+      bus.emit('sendLoadGame', {gameName: gameName})
       this.$store.dispatch('updateGameName', gameName)
     }
 
-    bus.$on('loadGame', (data) => {
+    bus.on('loadGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('loadGame', data)
         if (myName && gameName) {
-          bus.$emit('sendAddPlayer', {gameName: gameName, player: myName})
+          bus.emit('sendAddPlayer', {gameName: gameName, player: myName})
         }
       }
     })
 
-    bus.$on('startGame', (data) => {
+    bus.on('startGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('startGame', true)
       }
     })
 
-    bus.$on('endGame', (data) => {
+    bus.on('endGame', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('endGame', true)
       }
     })
 
-    bus.$on('updateGameState', (data) => {
+    bus.on('updateGameState', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('updateGameState', data)
       }
     })
 
-    bus.$on('updateItems', (data) => {
+    bus.on('updateItems', (data) => {
       if (this.gameName == data.gameName) {
         this.$store.dispatch('updateItems', data)
       }
     })
 
-    bus.$on('updateConnections', (data) => {
+    bus.on('updateConnections', (data) => {
       this.$store.dispatch('updateConnections', data)
     })
   },

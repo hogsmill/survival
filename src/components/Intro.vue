@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     startGame() {
-      bus.$emit('sendStartGame', {gameName: this.gameName})
+      bus.emit('sendStartGame', {gameName: this.gameName})
     }
   }
 }

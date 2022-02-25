@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     endGame() {
-      bus.$emit('sendEndGame', {gameName: this.gameName})
+      bus.emit('sendEndGame', {gameName: this.gameName})
     }
   }
 }

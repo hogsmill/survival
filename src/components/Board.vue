@@ -21,10 +21,12 @@
           </div>
         </td>
         <td v-for="player in gameState" :key="'b-' + player.name.id">
-          <draggable v-if="player.name.id == myName.id" v-model="player.items" group="items" @start="drag=true" @end="end(player.items)">
-            <div v-for="item in player.items" :key="item.item">
-              {{ item.item }}
-            </div>
+          <draggable v-if="player.name.id == myName.id" v-model="player.items" group="items" @start="drag=true" @mouseup="end(player.items)">
+            <template #item="{item}">
+              <span>
+                {{ item.item }}
+              </span>
+            </template>
           </draggable>
           <div v-if="player.name.id != myName.id">
             <div v-for="item in player.items" :key="item.item">
@@ -38,13 +40,13 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import Draggable from 'vue3-draggable'
 
 import bus from '../socket.js'
 
 export default {
   components: {
-    draggable
+    Draggable
   },
   computed: {
     myName() {
@@ -65,7 +67,7 @@ export default {
       return Math.floor(item.score / this.gameState.length * 10) / 10
     },
     end(items) {
-      bus.$emit('sendUpdateItems', {gameName: this.gameName, player: this.myName, items: items})
+      bus.emit('sendUpdateItems', {gameName: this.gameName, player: this.myName, items: items})
     }
   }
 }
@@ -92,9 +94,10 @@ export default {
         border-radius: 6px;
         box-shadow: 3px 3px 4px #444;
         margin: 4px;
-        padding: 6px;
+        padding: 3px 6px;
         background-color: #fff;
         opacity: 0.9;
+        height: 28px;
       }
 
       .sorted-items {
