@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.26.0",
     "death": "^1.1.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "mongo": "^0.1.0",
     "mongodb": "^4.11.0",
     "sass": "^1.49.0",
